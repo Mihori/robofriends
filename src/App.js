@@ -29,7 +29,7 @@ class App extends Component {
       <div className='tc'>
         <h1 className='f1'>RoboFriends</h1>
         <SearchBox onSearchChange={this.onSearchChange}/>
-        <CardList robots={filteredRobots} />
+        {this.state.robots.length === 0 ? <p> Loading... </p>: <CardList robots={filteredRobots} />}
       </div>
     ) 
   }
