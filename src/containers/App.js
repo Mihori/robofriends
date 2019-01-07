@@ -24,13 +24,14 @@ class App extends Component {
   }
   
   render() {
-    const filteredRobots = this.state.robots.filter(robot => robot.name.toLowerCase().includes(this.state.searchField.toLowerCase()));
+    const { robots, searchField } = this.state;
+    const filteredRobots = robots.filter(robot => robot.name.toLowerCase().includes(searchField.toLowerCase()));
     
     return (
       <div className='tc'>
         <h1 className='f1'>RoboFriends</h1>
         <SearchBox onSearchChange={this.onSearchChange}/>
-        {this.state.robots.length === 0
+        {robots.length === 0
           ? <p> Loading... </p>
           : <Scroll> <CardList robots={filteredRobots} /> </Scroll>}
       </div>
