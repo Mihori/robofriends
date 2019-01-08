@@ -24,29 +24,20 @@ const mapDispatchToProps = dispatch => {
 }
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      robots: [],
-    }
-  }
 
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json()
-      .then(robots => this.setState({ robots })));
+    this.props.onRequestRobots();
   }
   
   render() {
-    const { robots } = this.state;
-    const { searchField, onSearchChange } = this.props;
+    const { searchField, onSearchChange, robots, isPending } = this.props;
     const filteredRobots = robots.filter(robot => robot.name.toLowerCase().includes(searchField.toLowerCase()));
     
     return (
       <div className='tc'>
         <h1 className='f1'>RoboFriends</h1>
         <SearchBox onSearchChange={onSearchChange}/>
-        {robots.length === 0
+        {isPending
           ? <p> Loading... </p>
           : <Scroll> <ErrorBoundary> <CardList robots={filteredRobots} /> </ErrorBoundary> </Scroll>}
       </div>
